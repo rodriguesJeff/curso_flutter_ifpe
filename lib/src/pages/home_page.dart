@@ -82,8 +82,8 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('Dólar Hoje: ${dollarCotacao.toStringAsPrecision(2)}'),
-                  Text('Euro Hoje: ${euroCotacao.toStringAsPrecision(2)}'),
+                  Text('Dólar Hoje: ${dollarCotacao.toStringAsFixed(2)}'),
+                  Text('Euro Hoje: ${euroCotacao.toStringAsFixed(2)}'),
                 ],
               ),
               const SizedBox(height: 25.0),
@@ -92,8 +92,8 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('Dólares: ${dollarTotal.toStringAsPrecision(2)}'),
-                  Text('Euros: ${euroTotal.toStringAsPrecision(2)}'),
+                  Text('Dólares: ${dollarTotal.toStringAsFixed(2)}'),
+                  Text('Euros: ${euroTotal.toStringAsFixed(2)}'),
                 ],
               ),
               const SizedBox(height: 25.0),
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       dollarTotal =
                           double.tryParse(realController.text)! * dollarCotacao;
                       euroTotal =
-                          double.tryParse(euroController.text)! * euroCotacao;
+                          double.tryParse(realController.text)! * euroCotacao;
                     }
                   });
                 },
@@ -116,14 +116,22 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 25.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    dollarController.clear();
+                    euroController.clear();
+                    realController.clear();
+                    dollarTotal = 0.0;
+                    euroTotal = 0.0;
+                  });
+                },
                 style: const ButtonStyle().copyWith(
                   backgroundColor: MaterialStateProperty.all(
                     Colors.amber,
                   ),
                 ),
                 child: const Text(
-                  'CALCULAR',
+                  'LIMPAR',
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
